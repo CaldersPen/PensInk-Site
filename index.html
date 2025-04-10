@@ -1,16 +1,158 @@
-PensInk-Site
-index.html
-Harmonie Script.otf
-Castende.otf
-Baille Simpson.otf
-Wisteria Notes.otf
-Malliandra Script.otf
-Asgardhian.otf
-TheFrenchLetters.otf
-Montelia Hublot.otf
-Simone Kimber.otf
-Granady1.otf
-Wantsignature.otf
-thenaturalist.woff
-Alekin Wiliam.otf
-background: url('paper.jpg');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pens.Ink</title>
+  <style>
+    @font-face {
+      font-family: 'Harmonie Script';
+      src: url('Harmonie Script.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Castende';
+      src: url('Castende.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Baille Simpson';
+      src: url('Baille Simpson.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Wisteria Notes';
+      src: url('Wisteria Notes.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Malliandra Script';
+      src: url('Malliandra Script.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Asgardhian';
+      src: url('Asgardhian.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'The French Letters';
+      src: url('TheFrenchLetters.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Montelia Hublot';
+      src: url('Montelia Hublot.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Simone Kimber';
+      src: url('Simone Kimber.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Granady';
+      src: url('Granady1.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'Wantsignature';
+      src: url('Wantsignature.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'The Naturalist';
+      src: url('thenaturalist.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'Alekin Wiliam';
+      src: url('Alekin Wiliam Singleline.otf') format('opentype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('paper.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      color: #2e2e2e;
+      font-family: 'The Naturalist', serif;
+    }
+
+    .quote {
+      font-size: 2em;
+      text-align: center;
+      max-width: 80vw;
+      white-space: pre-wrap;
+      position: relative;
+      opacity: 1;
+      transition: opacity 2.5s ease-in-out;
+    }
+
+    .quote.fade-out {
+      opacity: 0;
+    }
+
+    .source {
+      margin-top: 0.5em;
+      font-size: 1.2em;
+      font-style: italic;
+      font-family: 'Simone Kimber', cursive;
+      opacity: 1;
+      transition: opacity 2.5s ease-in-out;
+    }
+
+    .source.fade-out {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="quote" id="quote"></div>
+  <div class="source" id="source"></div>
+
+  <script>
+    const quotes = [
+      { text: "All men are created equal.", source: "— Declaration of Independence" },
+      { text: "Injustice anywhere is a threat to justice everywhere.", source: "— Martin Luther King Jr." },
+      { text: "The ballot is stronger than the bullet.", source: "— Abraham Lincoln" },
+      { text: "A pen is certainly an excellent instrument to fix a man’s attention and to inflame his ambition.", source: "— John Adams" },
+      { text: "You can kill a man, but you can't kill an idea.", source: "— Medgar Evers" }
+    ];
+
+    let currentQuote = 0;
+    let charIndex = 0;
+    let isFadingOut = false;
+
+    const quoteEl = document.getElementById('quote');
+    const sourceEl = document.getElementById('source');
+
+    function typeQuote() {
+      const quote = quotes[currentQuote];
+
+      if (!isFadingOut) {
+        const displayedText = quote.text.substring(0, charIndex++);
+        quoteEl.textContent = displayedText;
+
+        if (charIndex === quote.text.length + 1) {
+          sourceEl.textContent = quote.source;
+          setTimeout(() => {
+            quoteEl.classList.add('fade-out');
+            sourceEl.classList.add('fade-out');
+            isFadingOut = true;
+            setTimeout(() => {
+              quoteEl.classList.remove('fade-out');
+              sourceEl.classList.remove('fade-out');
+              currentQuote = (currentQuote + 1) % quotes.length;
+              charIndex = 0;
+              sourceEl.textContent = '';
+              isFadingOut = false;
+              typeQuote();
+            }, 3000);
+          }, 3000);
+          return;
+        }
+      }
+
+      if (!isFadingOut) {
+        setTimeout(typeQuote, 180);
+      }
+    }
+
+    typeQuote();
+  </script>
+</body>
+</html>
