@@ -5,105 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pens.Ink</title>
   <style>
-    @font-face {
-      font-family: 'Harmonie Script';
-      src: url('Harmonie Script.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Castende';
-      src: url('Castende.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Baille Simpson';
-      src: url('Baille Simpson.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Wisteria Notes';
-      src: url('Wisteria Notes.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Malliandra Script';
-      src: url('Malliandra Script.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Asgardhian';
-      src: url('Asgardhian.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'The French Letters';
-      src: url('TheFrenchLetters.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Montelia Hublot';
-      src: url('Montelia Hublot.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Simone Kimber';
-      src: url('Simone Kimber.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Granady';
-      src: url('Granady1.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'Wantsignature';
-      src: url('Wantsignature.otf') format('opentype');
-    }
-    @font-face {
-      font-family: 'The Naturalist';
-      src: url('thenaturalist.woff') format('woff');
-    }
-    @font-face {
-      font-family: 'Alekin Wiliam';
-      src: url('Alekin Wiliam Singleline.otf') format('opentype');
-    }
-
     body {
       margin: 0;
       padding: 0;
-      background: url('paper.jpg') no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #f9f5ec;
       height: 100vh;
-      flex-direction: column;
-      color: #2e2e2e;
-      font-family: 'The Naturalist', serif;
+      overflow: hidden;
     }
 
-    .quote {
-      font-size: 2em;
-      text-align: center;
-      max-width: 80vw;
-      white-space: pre-wrap;
-      position: relative;
-      opacity: 1;
+    .quote-wrapper {
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+      padding: 40px;
+      border-radius: 8px;
+      color: #2e2e2e;
       transition: opacity 2.5s ease-in-out;
     }
 
-    .quote.fade-out {
+    .quote-wrapper.fade-out {
       opacity: 0;
     }
 
-    .source {
-      margin-top: 0.5em;
-      font-size: 1.2em;
-      font-style: italic;
-      font-family: 'Simone Kimber', cursive;
+    .quote-text {
+      white-space: pre-wrap;
+    }
+
+    .ink {
+      position: absolute;
+      pointer-events: none;
       opacity: 1;
       transition: opacity 2.5s ease-in-out;
     }
 
-    .source.fade-out {
+    .ink.fade-out {
       opacity: 0;
     }
   </style>
 </head>
 <body>
-  <div class="quote" id="quote"></div>
-  <div class="source" id="source"></div>
-
   <script>
     const quotes = [
       { text: "All men are created equal.", source: "— Declaration of Independence" },
@@ -113,46 +53,74 @@
       { text: "You can kill a man, but you can't kill an idea.", source: "— Medgar Evers" }
     ];
 
-    let currentQuote = 0;
-    let charIndex = 0;
-    let isFadingOut = false;
+    const fonts = [
+      'Simone Kimber', 'The Naturalist', 'Wisteria Notes', 'Baille Simpson', 'Castende',
+      'Harmonie Script', 'Granady', 'Malliandra Script', 'Wantsignature', 'Asgardhian',
+      'The French Letters', 'Montelia Hublot', 'Alekin Wiliam'
+    ];
 
-    const quoteEl = document.getElementById('quote');
-    const sourceEl = document.getElementById('source');
+    const papers = [
+      '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg',
+      '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg'
+    ];
 
-    function typeQuote() {
-      const quote = quotes[currentQuote];
+    const inks = [
+      'ink1.png', 'ink2.png', 'ink3.png', 'ink4.png', 'ink5.png'
+    ];
 
-      if (!isFadingOut) {
-        const displayedText = quote.text.substring(0, charIndex++);
-        quoteEl.textContent = displayedText;
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-        if (charIndex === quote.text.length + 1) {
-          sourceEl.textContent = quote.source;
-          setTimeout(() => {
-            quoteEl.classList.add('fade-out');
-            sourceEl.classList.add('fade-out');
-            isFadingOut = true;
-            setTimeout(() => {
-              quoteEl.classList.remove('fade-out');
-              sourceEl.classList.remove('fade-out');
-              currentQuote = (currentQuote + 1) % quotes.length;
-              charIndex = 0;
-              sourceEl.textContent = '';
-              isFadingOut = false;
-              typeQuote();
-            }, 3000);
-          }, 3000);
-          return;
-        }
-      }
+    function createQuote(text, source) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'quote-wrapper';
+      wrapper.style.left = getRandomInt(0, window.innerWidth - 350) + 'px';
+      wrapper.style.top = getRandomInt(0, window.innerHeight - 200) + 'px';
+      wrapper.style.fontSize = getRandomInt(24, 64) + 'px';
+      wrapper.style.fontFamily = fonts[getRandomInt(0, fonts.length - 1)];
+      wrapper.style.backgroundImage = `url('${papers[getRandomInt(0, papers.length - 1)]}')`;
 
-      if (!isFadingOut) {
-        setTimeout(typeQuote, 180);
+      const quoteText = document.createElement('div');
+      quoteText.className = 'quote-text';
+      quoteText.textContent = `${text}\n${source}`;
+
+      wrapper.appendChild(quoteText);
+      document.body.appendChild(wrapper);
+
+      setTimeout(() => wrapper.classList.add('fade-out'), 3000);
+      setTimeout(() => document.body.removeChild(wrapper), 6000);
+    }
+
+    function createInkDrop() {
+      const ink = document.createElement('img');
+      ink.className = 'ink';
+      ink.src = inks[getRandomInt(0, inks.length - 1)];
+      ink.style.left = getRandomInt(0, window.innerWidth - 200) + 'px';
+      ink.style.top = getRandomInt(0, window.innerHeight - 200) + 'px';
+      ink.style.width = getRandomInt(100, 300) + 'px';
+
+      document.body.appendChild(ink);
+      setTimeout(() => ink.classList.add('fade-out'), 3000);
+      setTimeout(() => document.body.removeChild(ink), 6000);
+    }
+
+    function showContent() {
+      const usedIndexes = new Set();
+      for (let i = 0; i < 3; i++) {
+        let index;
+        do {
+          index = getRandomInt(0, quotes.length - 1);
+        } while (usedIndexes.has(index));
+        usedIndexes.add(index);
+        const { text, source } = quotes[index];
+        createQuote(text, source);
+        createInkDrop();
       }
     }
 
-    typeQuote();
+    setInterval(showContent, 6000);
+    showContent();
   </script>
 </body>
 </html>
