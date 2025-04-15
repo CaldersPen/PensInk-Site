@@ -64,7 +64,25 @@
       { text: "\"You can make anything by writing.\"\n— C.S. Lewis" },
       { text: "\"Fill your paper with the breathings of your heart.\"\n— William Wordsworth" },
       { text: "\"Injustice anywhere is a threat to justice everywhere.\"\n— Martin Luther King Jr." },
+      { text: "\"Writing is the painting of the voice.\"\n— Voltaire" },
+      { text: "\"The role of a writer is not to say what we all can say, but what we are unable to say.\"\n— Anaïs Nin" },
+      { text: "\"A writer is someone for whom writing is more difficult than it is for other people.\"\n— Thomas Mann" },
+      { text: "\"There is no greater agony than bearing an untold story inside you.\"\n— Maya Angelou" },
+      { text: "\"We write to taste life twice, in the moment and in retrospect.\"\n— Anaïs Nin" },
+      { text: "\"A word after a word after a word is power.\"\n— Margaret Atwood" },
+      { text: "\"The scariest moment is always just before you start.\"\n— Stephen King" },
+      { text: "\"Start writing, no matter what. The water does not flow until the faucet is turned on.\"\n— Louis L’Amour" },
+      { text: "\"There is no real ending. It’s just the place where you stop the story.\"\n— Frank Herbert" },
+      { text: "\"Writing is thinking on paper.\"\n— William Zinsser" },
+      { text: "\"The pen compels lucidity.\"\n— Alain de Botton" },
+      { text: "\"The purpose of a writer is to keep civilization from destroying itself.\"\n— Albert Camus" },
+      { text: "\"You never have to change anything you got up in the middle of the night to write.\"\n— Saul Bellow" },
+      { text: "\"A writer lives in awe of words... for they can be cruel or kind.\"\n— John Steinbeck" },
+      { text: "\"Write hard and clear about what hurts.\"\n— Ernest Hemingway" },
+      { text: "\"Let the world burn through you. Throw the prism light, white hot, on paper.\"\n— Ray Bradbury" }
     ];
+
+    let usedIndexes = [];
 
     const fonts = [
       'Alekin Wiliam','Asgardhian','Athalia','Baille Simpson','Bellidhia','Castende','Dark Whisper','Debbie Rate',
@@ -87,24 +105,28 @@
     function adjustFontSize(font) {
       const largerFonts = ['Alekin Wiliam', 'Simone Kimber', 'The French Letters'];
       quoteEl.style.fontSize = largerFonts.includes(font) ? '48px' : '36px';
+      quoteEl.style.fontWeight = font === 'The French Letters' ? 'bold' : 'normal';
+      quoteEl.style.opacity = font === 'The French Letters' ? '0.9' : '';
     }
 
     function showQuote() {
-      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-      const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-      quoteEl.style.fontFamily = randomFont;
-      quoteEl.textContent = randomQuote.text;
-      adjustFontSize(randomFont);
+      if (usedIndexes.length === quotes.length) usedIndexes = [];
+      let index;
+      do {
+        index = Math.floor(Math.random() * quotes.length);
+      } while (usedIndexes.includes(index));
+      usedIndexes.push(index);
+
+      const quote = quotes[index];
+      const font = fonts[Math.floor(Math.random() * fonts.length)];
+      quoteEl.style.fontFamily = font;
+      quoteEl.textContent = quote.text;
+      adjustFontSize(font);
       setRandomPosition();
+
       quoteEl.classList.add('show');
-
-      setTimeout(() => {
-        quoteEl.classList.remove('show');
-      }, 9000);
-
-      setTimeout(() => {
-        showQuote();
-      }, 15000);
+      setTimeout(() => quoteEl.classList.remove('show'), 9000);
+      setTimeout(showQuote, 15000);
     }
 
     setTimeout(showQuote, 7000);
