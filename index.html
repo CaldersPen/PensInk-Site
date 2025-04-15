@@ -3,124 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pens.Ink</title>
+  <title>Pens.Ink — MLK Jr. Quote</title>
   <style>
+    @font-face {
+      font-family: "Simone Kimber";
+      src: url("Simone Kimber.otf") format("opentype");
+    }
+
     body {
       margin: 0;
       padding: 0;
-      background: #f9f5ec;
       height: 100vh;
-      overflow: hidden;
-    }
-
-    .quote-wrapper {
-      position: absolute;
+      background: url('Vintage Paper 21.jpg') center center no-repeat;
       background-size: cover;
-      background-repeat: no-repeat;
-      padding: 40px;
-      border-radius: 8px;
-      color: #2e2e2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Simone Kimber", cursive;
+      font-size: 2.2em;
+      color: #1a1a1a;
+    }
+
+    .quote-container {
+      max-width: 80%;
+      text-align: center;
+      opacity: 0;
       transition: opacity 2.5s ease-in-out;
     }
 
-    .quote-wrapper.fade-out {
-      opacity: 0;
-    }
-
-    .quote-text {
-      white-space: pre-wrap;
-    }
-
-    .ink {
-      position: absolute;
-      pointer-events: none;
+    .quote-container.visible {
       opacity: 1;
-      transition: opacity 2.5s ease-in-out;
-    }
-
-    .ink.fade-out {
-      opacity: 0;
     }
   </style>
 </head>
 <body>
+  <div class="quote-container" id="quote">
+    “Injustice anywhere is a threat to justice everywhere.”<br>— Martin Luther King Jr.
+  </div>
+
   <script>
-    const quotes = [
-      { text: "All men are created equal.", source: "— Declaration of Independence" },
-      { text: "Injustice anywhere is a threat to justice everywhere.", source: "— Martin Luther King Jr." },
-      { text: "The ballot is stronger than the bullet.", source: "— Abraham Lincoln" },
-      { text: "A pen is certainly an excellent instrument to fix a man’s attention and to inflame his ambition.", source: "— John Adams" },
-      { text: "You can kill a man, but you can't kill an idea.", source: "— Medgar Evers" }
-    ];
+    const quote = document.getElementById('quote');
 
-    const fonts = [
-      'Simone Kimber', 'The Naturalist', 'Wisteria Notes', 'Baille Simpson', 'Castende',
-      'Harmonie Script', 'Granady', 'Malliandra Script', 'Wantsignature', 'Asgardhian',
-      'The French Letters', 'Montelia Hublot', 'Alekin Wiliam'
-    ];
-
-    const papers = [
-      '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg',
-      '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg'
-    ];
-
-    const inks = [
-      'ink1.png', 'ink2.png', 'ink3.png', 'ink4.png', 'ink5.png'
-    ];
-
-    function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+    function fadeLoop() {
+      quote.classList.add('visible');
+      setTimeout(() => {
+        quote.classList.remove('visible');
+      }, 5000); // show for 5 seconds
+      setTimeout(fadeLoop, 8000); // total loop every 8 seconds
     }
 
-    function createQuote(text, source) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'quote-wrapper';
-      wrapper.style.left = getRandomInt(0, window.innerWidth - 350) + 'px';
-      wrapper.style.top = getRandomInt(0, window.innerHeight - 200) + 'px';
-      wrapper.style.fontSize = getRandomInt(24, 64) + 'px';
-      wrapper.style.fontFamily = fonts[getRandomInt(0, fonts.length - 1)];
-      wrapper.style.backgroundImage = `url('${papers[getRandomInt(0, papers.length - 1)]}')`;
-
-      const quoteText = document.createElement('div');
-      quoteText.className = 'quote-text';
-      quoteText.textContent = `${text}\n${source}`;
-
-      wrapper.appendChild(quoteText);
-      document.body.appendChild(wrapper);
-
-      setTimeout(() => wrapper.classList.add('fade-out'), 3000);
-      setTimeout(() => document.body.removeChild(wrapper), 6000);
-    }
-
-    function createInkDrop() {
-      const ink = document.createElement('img');
-      ink.className = 'ink';
-      ink.src = inks[getRandomInt(0, inks.length - 1)];
-      ink.style.left = getRandomInt(0, window.innerWidth - 200) + 'px';
-      ink.style.top = getRandomInt(0, window.innerHeight - 200) + 'px';
-      ink.style.width = getRandomInt(100, 300) + 'px';
-
-      document.body.appendChild(ink);
-      setTimeout(() => ink.classList.add('fade-out'), 3000);
-      setTimeout(() => document.body.removeChild(ink), 6000);
-    }
-
-    function showContent() {
-      const usedIndexes = new Set();
-      for (let i = 0; i < 3; i++) {
-        let index;
-        do {
-          index = getRandomInt(0, quotes.length - 1);
-        } while (usedIndexes.has(index));
-        usedIndexes.add(index);
-        const { text, source } = quotes[index];
-        createQuote(text, source);
-        createInkDrop();
-      }
-    }
-
-    setInterval(showContent, 6000);
-    showContent();
+    setTimeout(fadeLoop, 1000); // start after slight delay
   </script>
 </body>
 </html>
