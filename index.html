@@ -5,10 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pens.Ink</title>
   <style>
-    @font-face {
-      font-family: 'Wantsignature';
-      src: url('Wantsignature.otf') format('opentype');
-    }
+    @font-face { font-family: 'Alekin Wiliam'; src: url('Alekin Wiliam.otf') format('opentype'); }
+    @font-face { font-family: 'Asgardhian'; src: url('Asgardhian.otf') format('opentype'); }
+    @font-face { font-family: 'Athalia'; src: url('Athalia.otf') format('opentype'); }
+    @font-face { font-family: 'Baille Simpson'; src: url('Baille Simpson.otf') format('opentype'); }
+    @font-face { font-family: 'Bellidhia'; src: url('Bellidhia.otf') format('opentype'); }
+    @font-face { font-family: 'Castende'; src: url('Castende.otf') format('opentype'); }
+    @font-face { font-family: 'Dark Whisper'; src: url('Dark Whisper.woff2') format('woff2'); }
+    @font-face { font-family: 'Debbie Rate'; src: url('Debbie Rate.otf') format('opentype'); }
+    @font-face { font-family: 'Granady'; src: url('Granady1.otf') format('opentype'); }
+    @font-face { font-family: 'Granady Swash'; src: url('Granady swash line.otf') format('opentype'); }
+    @font-face { font-family: 'Harmonie Script'; src: url('Harmonie Script.otf') format('opentype'); }
+    @font-face { font-family: 'Montelia Hublot'; src: url('Montelia Hublot.otf') format('opentype'); }
+    @font-face { font-family: 'RoyalWedding'; src: url('RoyalWedding-Regular.otf') format('opentype'); }
+    @font-face { font-family: 'Simone Kimber'; src: url('Simone Kimber.otf') format('opentype'); }
+    @font-face { font-family: 'Thamepalms'; src: url('Thamepalms.otf') format('opentype'); }
+    @font-face { font-family: 'The French Letters'; src: url('TheFrenchLetters.otf') format('opentype'); }
+    @font-face { font-family: 'TravailAcharné'; src: url('TravailAcharné-Regular.otf') format('opentype'); }
+    @font-face { font-family: 'Wantsignature'; src: url('Wantsignature.otf') format('opentype'); }
+    @font-face { font-family: 'Wisteria Notes'; src: url('Wisteria Notes.otf') format('opentype'); }
 
     body {
       margin: 0;
@@ -24,7 +39,6 @@
     }
 
     .quote {
-      font-family: 'Wantsignature', cursive;
       font-size: 36px;
       color: #2e2e2e;
       text-align: center;
@@ -45,7 +59,19 @@
   <div class="quote" id="quote"></div>
 
   <script>
-    const quoteText = "\"Injustice anywhere is a threat to justice everywhere.\"\n— Martin Luther King Jr.";
+    const quotes = [
+      { text: "\"The pen is mightier than the sword.\"\n— Edward Bulwer-Lytton" },
+      { text: "\"You can make anything by writing.\"\n— C.S. Lewis" },
+      { text: "\"Fill your paper with the breathings of your heart.\"\n— William Wordsworth" },
+      { text: "\"Injustice anywhere is a threat to justice everywhere.\"\n— Martin Luther King Jr." },
+    ];
+
+    const fonts = [
+      'Alekin Wiliam','Asgardhian','Athalia','Baille Simpson','Bellidhia','Castende','Dark Whisper','Debbie Rate',
+      'Granady','Granady Swash','Harmonie Script','Montelia Hublot','RoyalWedding','Simone Kimber','Thamepalms',
+      'The French Letters','TravailAcharné','Wantsignature','Wisteria Notes'
+    ];
+
     const quoteEl = document.getElementById('quote');
 
     function setRandomPosition() {
@@ -59,20 +85,23 @@
     }
 
     function showQuote() {
-      quoteEl.textContent = quoteText;
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+      quoteEl.style.fontFamily = randomFont;
+      quoteEl.textContent = randomQuote.text;
       setRandomPosition();
       quoteEl.classList.remove('fade-out');
 
       setTimeout(() => {
         quoteEl.classList.add('fade-out');
-      }, 9000); // Show for 9 seconds
+      }, 9000);
 
       setTimeout(() => {
         showQuote();
-      }, 15000); // Full cycle before repeating
+      }, 15000);
     }
 
-    setTimeout(showQuote, 5000); // Delay 5 seconds before first show
+    setTimeout(showQuote, 7000);
   </script>
 </body>
 </html>
