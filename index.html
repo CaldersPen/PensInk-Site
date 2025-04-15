@@ -45,13 +45,13 @@
       max-width: 90vw;
       padding: 20px;
       position: absolute;
-      opacity: 1;
+      opacity: 0;
       transition: opacity 6s ease-in-out;
       white-space: pre-wrap;
     }
 
-    .quote.fade-out {
-      opacity: 0;
+    .quote.show {
+      opacity: 1;
     }
   </style>
 </head>
@@ -84,16 +84,22 @@
       quoteEl.style.top = `${top}px`;
     }
 
+    function adjustFontSize(font) {
+      const largerFonts = ['Alekin Wiliam', 'Simone Kimber', 'The French Letters'];
+      quoteEl.style.fontSize = largerFonts.includes(font) ? '48px' : '36px';
+    }
+
     function showQuote() {
       const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
       const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
       quoteEl.style.fontFamily = randomFont;
       quoteEl.textContent = randomQuote.text;
+      adjustFontSize(randomFont);
       setRandomPosition();
-      quoteEl.classList.remove('fade-out');
+      quoteEl.classList.add('show');
 
       setTimeout(() => {
-        quoteEl.classList.add('fade-out');
+        quoteEl.classList.remove('show');
       }, 9000);
 
       setTimeout(() => {
