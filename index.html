@@ -3,56 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pens.Ink — MLK Jr. Quote</title>
+  <title>Pens.Ink</title>
   <style>
     @font-face {
-      font-family: "Simone Kimber";
-      src: url("Simone Kimber.otf") format("opentype");
+      font-family: 'Wantsignature';
+      src: url('Wantsignature.otf') format('opentype');
     }
 
     body {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      background: url('Vintage Paper 21.jpg') center center no-repeat;
+      background-image: url('paper.jpg');
       background-size: cover;
+      background-position: center;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: "Simone Kimber", cursive;
-      font-size: 2.2em;
-      color: #1a1a1a;
+      overflow: hidden;
     }
 
-    .quote-container {
-      max-width: 80%;
+    .quote {
+      font-family: 'Wantsignature', cursive;
+      font-size: 36px;
+      color: #2e2e2e;
       text-align: center;
-      opacity: 0;
-      transition: opacity 2.5s ease-in-out;
+      max-width: 90vw;
+      padding: 20px;
+      position: absolute;
+      opacity: 1;
+      transition: opacity 6s ease-in-out;
+      white-space: pre-wrap;
     }
 
-    .quote-container.visible {
-      opacity: 1;
+    .quote.fade-out {
+      opacity: 0;
     }
   </style>
 </head>
 <body>
-  <div class="quote-container" id="quote">
-    “Injustice anywhere is a threat to justice everywhere.”<br>— Martin Luther King Jr.
-  </div>
+  <div class="quote" id="quote"></div>
 
   <script>
-    const quote = document.getElementById('quote');
+    const quoteText = "\"Injustice anywhere is a threat to justice everywhere.\"\n— Martin Luther King Jr.";
+    const quoteEl = document.getElementById('quote');
 
-    function fadeLoop() {
-      quote.classList.add('visible');
-      setTimeout(() => {
-        quote.classList.remove('visible');
-      }, 5000); // show for 5 seconds
-      setTimeout(fadeLoop, 8000); // total loop every 8 seconds
+    function setRandomPosition() {
+      const padding = 60;
+      const maxLeft = window.innerWidth - quoteEl.offsetWidth - padding;
+      const maxTop = window.innerHeight - quoteEl.offsetHeight - padding;
+      const left = Math.floor(Math.random() * maxLeft);
+      const top = Math.floor(Math.random() * maxTop);
+      quoteEl.style.left = `${left}px`;
+      quoteEl.style.top = `${top}px`;
     }
 
-    setTimeout(fadeLoop, 1000); // start after slight delay
+    function showQuote() {
+      quoteEl.textContent = quoteText;
+      setRandomPosition();
+      quoteEl.classList.remove('fade-out');
+
+      setTimeout(() => {
+        quoteEl.classList.add('fade-out');
+      }, 9000); // Show for 9 seconds
+
+      setTimeout(() => {
+        showQuote();
+      }, 15000); // Full cycle before repeating
+    }
+
+    setTimeout(showQuote, 5000); // Delay 5 seconds before first show
   </script>
 </body>
 </html>
