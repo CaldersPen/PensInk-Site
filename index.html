@@ -2,100 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shop | Pens.Ink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pens.Ink</title>
   <style>
+    @font-face { font-family: 'RoyalWedding'; src: url('RoyalWedding-Regular.otf'); }
     body {
       margin: 0;
-      font-family: serif;
-      background-color: #f5f1e8;
-      color: #2c2c2c;
-      padding: 2rem;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background-color: #f7f3e8;
+      color: #2e2e2e;
+      text-align: center;
     }
 
     header {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .pen-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .pen-card {
-      background-color: white;
-      border-radius: 1rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.2s ease;
-    }
-
-    .pen-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .pen-card img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
-    }
-
-    .pen-name {
-      font-size: 1.2rem;
+      background-color: #e9dec7;
+      padding: 20px 0 10px;
+      font-family: 'RoyalWedding', Georgia, serif;
+      font-size: 28px;
       font-weight: bold;
-      margin: 1rem 0 0.5rem;
-      text-align: center;
+      border-bottom: 1px solid #ccc;
     }
 
-    .pen-description {
-      font-size: 0.95rem;
-      text-align: center;
-      margin-bottom: 1rem;
+    nav {
+      margin-top: 10px;
+      font-size: 20px;
     }
 
-    .buy-button {
-      background-color: #2e2e2e;
-      color: white;
-      padding: 0.6rem 1.2rem;
+    nav a {
       text-decoration: none;
-      border-radius: 2rem;
-      transition: background 0.3s ease;
+      color: #2e2e2e;
+      margin: 0 20px;
+      font-weight: bold;
     }
 
-    .buy-button:hover {
-      background-color: #5e5e5e;
+    .quote-container {
+      position: relative;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quote {
+      font-size: 28px;
+      max-width: 80vw;
+      opacity: 0;
+      transition: opacity 2s ease;
+      white-space: pre-wrap;
+    }
+
+    .quote.show {
+      opacity: 1;
+    }
+
+    .quote .author {
+      display: block;
+      margin-top: 20px;
+      font-size: 22px;
     }
   </style>
 </head>
 <body>
-  <header>Featured Pens</header>
-  <section class="pen-grid">
-    <div class="pen-card">
-      <img src="https://example.com/images/pen1.jpg" alt="Pen 1">
-      <div class="pen-name">Montblanc Meisterstück Classique</div>
-      <div class="pen-description">A timeless icon of writing excellence. Smooth resin and gold trim.</div>
-      <a href="#" class="buy-button">Buy Now</a>
-    </div>
+  <header>
+    Pens.Ink — The Power of the Pen
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="shop.html">Shop</a>
+    </nav>
+  </header>
 
-    <div class="pen-card">
-      <img src="https://example.com/images/pen2.jpg" alt="Pen 2">
-      <div class="pen-name">Lamy Safari Fountain Pen</div>
-      <div class="pen-description">Ergonomic grip, modern design. Great for everyday writers.</div>
-      <a href="#" class="buy-button">Buy Now</a>
-    </div>
+  <div class="quote-container">
+    <div class="quote" id="quote"></div>
+  </div>
 
-    <div class="pen-card">
-      <img src="https://example.com/images/pen3.jpg" alt="Pen 3">
-      <div class="pen-name">Pilot Vanishing Point</div>
-      <div class="pen-description">Retractable nib, innovative functionality, Japanese engineering.</div>
-      <a href="#" class="buy-button">Buy Now</a>
-    </div>
-  </section>
+  <script>
+    const quotes = [
+      { text: "The pen is mightier than the sword.", author: "Edward Bulwer-Lytton" },
+      { text: "You can make anything by writing.", author: "C.S. Lewis" },
+      { text: "Fill your paper with the breathings of your heart.", author: "William Wordsworth" },
+      { text: "Injustice anywhere is a threat to justice everywhere.", author: "Martin Luther King Jr." },
+      { text: "Writing is the painting of the voice.", author: "Voltaire" },
+      { text: "The purpose of a writer is to keep civilization from destroying itself.", author: "Albert Camus" },
+      { text: "We write to taste life twice, in the moment and in retrospect.", author: "Anaïs Nin" },
+      { text: "A word after a word after a word is power.", author: "Margaret Atwood" },
+      { text: "Start writing, no matter what. The water does not flow until the faucet is turned on.", author: "Louis L’Amour" },
+      { text: "Writing is thinking on paper.", author: "William Zinsser" },
+      { text: "The scariest moment is always just before you start.", author: "Stephen King" }
+    ];
+
+    const fonts = [
+      "Georgia", "Times New Roman", "Palatino", "Garamond",
+      "RoyalWedding", "cursive", "serif"
+    ];
+
+    const quoteEl = document.getElementById('quote');
+    let usedIndexes = [];
+
+    function showNextQuote() {
+      if (usedIndexes.length === quotes.length) usedIndexes = [];
+
+      let index;
+      do {
+        index = Math.floor(Math.random() * quotes.length);
+      } while (usedIndexes.includes(index));
+
+      usedIndexes.push(index);
+      const quote = quotes[index];
+
+      const font = fonts[Math.floor(Math.random() * fonts.length)];
+      quoteEl.style.fontFamily = font;
+      quoteEl.style.fontSize = (font === "RoyalWedding") ? "36px" : "28px";
+
+      quoteEl.innerHTML = `"${quote.text}"<span class="author">\n${quote.author}</span>`;
+      quoteEl.classList.remove("show");
+
+      void quoteEl.offsetWidth; // Force reflow
+
+      setTimeout(() => quoteEl.classList.add("show"), 200);       // fade in
+      setTimeout(() => quoteEl.classList.remove("show"), 9500);   // fade out
+
+      setTimeout(showNextQuote, 11000); // total time
+    }
+
+    setTimeout(showNextQuote, 5000); // Initial delay before first quote
+  </script>
 </body>
 </html>
