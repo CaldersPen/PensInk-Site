@@ -5,24 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pens.Ink</title>
   <style>
-    @font-face { font-family: 'Alekin Wiliam'; src: url('Alekin Wiliam.otf') format('opentype'); }
-    @font-face { font-family: 'Asgardhian'; src: url('Asgardhian.otf') format('opentype'); }
-    @font-face { font-family: 'Athalia'; src: url('Athalia.otf') format('opentype'); }
-    @font-face { font-family: 'Baille Simpson'; src: url('Baille Simpson.otf') format('opentype'); }
-    @font-face { font-family: 'Bellidhia'; src: url('Bellidhia.otf') format('opentype'); }
-    @font-face { font-family: 'Castende'; src: url('Castende.otf') format('opentype'); }
-    @font-face { font-family: 'Dark Whisper'; src: url('Dark Whisper.woff2') format('woff2'); }
-    @font-face { font-family: 'Debbie Rate'; src: url('Debbie Rate.otf') format('opentype'); }
-    @font-face { font-family: 'Granady'; src: url('Granady1.otf') format('opentype'); }
-    @font-face { font-family: 'Harmonie Script'; src: url('Harmonie Script.otf') format('opentype'); }
-    @font-face { font-family: 'Montelia Hublot'; src: url('Montelia Hublot.otf') format('opentype'); }
-    @font-face { font-family: 'RoyalWedding'; src: url('RoyalWedding-Regular.otf') format('opentype'); }
-    @font-face { font-family: 'Simone Kimber'; src: url('Simone Kimber.otf') format('opentype'); }
-    @font-face { font-family: 'Thamepalms'; src: url('Thamepalms.otf') format('opentype'); }
-    @font-face { font-family: 'The French Letters'; src: url('TheFrenchLetters.otf') format('opentype'); }
-    @font-face { font-family: 'TravailAcharné'; src: url('TravailAcharné-Regular.otf') format('opentype'); }
-    @font-face { font-family: 'Wantsignature'; src: url('Wantsignature.otf') format('opentype'); }
-    @font-face { font-family: 'Wisteria Notes'; src: url('Wisteria Notes.otf') format('opentype'); }
+    @font-face { font-family: 'Alekin Wiliam'; src: url('Alekin Wiliam.otf'); }
+    @font-face { font-family: 'Simone Kimber'; src: url('Simone Kimber.otf'); }
+    @font-face { font-family: 'The French Letters'; src: url('TheFrenchLetters.otf'); }
+    @font-face { font-family: 'Granady'; src: url('Granady1.otf'); }
 
     body {
       margin: 0;
@@ -31,47 +17,25 @@
       background-size: cover;
       background-position: center;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
 
     .quote {
-      font-size: 36px;
-      color: #2e2e2e;
-      text-align: center;
-      max-width: 90vw;
-      padding: 20px;
       position: absolute;
-      opacity: 0;
+      font-size: 48px;
+      color: #1a1a1a;
+      max-width: 80vw;
+      text-align: center;
       white-space: pre-wrap;
-      background: linear-gradient(to right, #2e2e2e 0%, #2e2e2e 50%, transparent 50%, transparent 100%);
-      background-size: 200% 100%;
-      background-position: 100% 0;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: none;
+      opacity: 1;
+      transition: opacity 3s ease-in-out;
     }
 
-    .quote.show {
-      animation: handwriting 6s linear forwards, fadeout 3s ease-in-out 13s forwards;
-    }
-
-    @keyframes handwriting {
-      0% {
-        background-position: 100% 0;
-      }
-      100% {
-        background-position: 0 0;
-        color: #2e2e2e;
-      }
-    }
-
-    @keyframes fadeout {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
+    .fade-out {
+      opacity: 0;
     }
   </style>
 </head>
@@ -80,40 +44,23 @@
 
   <script>
     const quotes = [
-      { text: "\"The pen is mightier than the sword.\"\n— Edward Bulwer-Lytton" },
-      { text: "\"You can make anything by writing.\"\n— C.S. Lewis" },
-      { text: "\"Fill your paper with the breathings of your heart.\"\n— William Wordsworth" },
-      { text: "\"Injustice anywhere is a threat to justice everywhere.\"\n— Martin Luther King Jr." },
-      { text: "\"Writing is the painting of the voice.\"\n— Voltaire" },
-      { text: "\"The role of a writer is not to say what we all can say, but what we are unable to say.\"\n— Anaïs Nin" },
-      { text: "\"A writer is someone for whom writing is more difficult than it is for other people.\"\n— Thomas Mann" },
-      { text: "\"There is no greater agony than bearing an untold story inside you.\"\n— Maya Angelou" },
-      { text: "\"We write to taste life twice, in the moment and in retrospect.\"\n— Anaïs Nin" },
-      { text: "\"A word after a word after a word is power.\"\n— Margaret Atwood" },
-      { text: "\"The scariest moment is always just before you start.\"\n— Stephen King" },
-      { text: "\"Start writing, no matter what. The water does not flow until the faucet is turned on.\"\n— Louis L’Amour" },
-      { text: "\"There is no real ending. It’s just the place where you stop the story.\"\n— Frank Herbert" },
-      { text: "\"Writing is thinking on paper.\"\n— William Zinsser" },
-      { text: "\"The pen compels lucidity.\"\n— Alain de Botton" },
-      { text: "\"The purpose of a writer is to keep civilization from destroying itself.\"\n— Albert Camus" },
-      { text: "\"You never have to change anything you got up in the middle of the night to write.\"\n— Saul Bellow" },
-      { text: "\"A writer lives in awe of words... for they can be cruel or kind.\"\n— John Steinbeck" },
-      { text: "\"Write hard and clear about what hurts.\"\n— Ernest Hemingway" },
-      { text: "\"Let the world burn through you. Throw the prism light, white hot, on paper.\"\n— Ray Bradbury" }
+      "\"Injustice anywhere is a threat to justice everywhere.\"\n— Martin Luther King Jr.",
+      "\"The pen is mightier than the sword.\"\n— Edward Bulwer-Lytton",
+      "\"You can make anything by writing.\"\n— C.S. Lewis",
+      "\"Writing is the painting of the voice.\"\n— Voltaire",
+      "\"The pen compels lucidity.\"\n— Alain de Botton",
+      "\"Fill your paper with the breathings of your heart.\"\n— William Wordsworth"
     ];
 
-    let usedIndexes = [];
-
-    const fonts = [
-      'Alekin Wiliam','Asgardhian','Athalia','Baille Simpson','Bellidhia','Castende','Dark Whisper','Debbie Rate',
-      'Granady','Harmonie Script','Montelia Hublot','RoyalWedding','Simone Kimber','Thamepalms',
-      'The French Letters','TravailAcharné','Wantsignature','Wisteria Notes'
-    ];
+    const fonts = ['Alekin Wiliam', 'Simone Kimber', 'The French Letters', 'Granady'];
 
     const quoteEl = document.getElementById('quote');
 
+    let usedIndexes = [];
+    let currentTimeouts = [];
+
     function setRandomPosition() {
-      const padding = 60;
+      const padding = 40;
       const maxLeft = window.innerWidth - quoteEl.offsetWidth - padding;
       const maxTop = window.innerHeight - quoteEl.offsetHeight - padding;
       const left = Math.floor(Math.random() * maxLeft);
@@ -122,14 +69,31 @@
       quoteEl.style.top = `${top}px`;
     }
 
-    function adjustFontSize(font) {
-      const largerFonts = ['Alekin Wiliam', 'Simone Kimber', 'The French Letters'];
-      quoteEl.style.fontSize = largerFonts.includes(font) ? '48px' : '36px';
-      quoteEl.style.fontWeight = font === 'The French Letters' ? 'bold' : 'normal';
-      quoteEl.style.opacity = font === 'The French Letters' ? '0.9' : '';
+    function typeText(text, index = 0) {
+      if (index === 0) quoteEl.textContent = "";
+
+      if (index < text.length) {
+        quoteEl.textContent += text[index];
+        const timeout = setTimeout(() => typeText(text, index + 1), 50);
+        currentTimeouts.push(timeout);
+      } else {
+        // hold before fading out
+        const holdTimeout = setTimeout(() => {
+          quoteEl.classList.add("fade-out");
+          const nextTimeout = setTimeout(showQuote, 3000);
+          currentTimeouts.push(nextTimeout);
+        }, 3000);
+        currentTimeouts.push(holdTimeout);
+      }
     }
 
     function showQuote() {
+      // Clear previous timeouts
+      currentTimeouts.forEach(clearTimeout);
+      currentTimeouts = [];
+
+      quoteEl.classList.remove("fade-out");
+
       if (usedIndexes.length === quotes.length) usedIndexes = [];
       let index;
       do {
@@ -139,16 +103,11 @@
 
       const quote = quotes[index];
       const font = fonts[Math.floor(Math.random() * fonts.length)];
+
       quoteEl.style.fontFamily = font;
-      quoteEl.textContent = quote.text;
-      adjustFontSize(font);
+      quoteEl.style.fontSize = font === 'The French Letters' ? '48px' : '42px';
       setRandomPosition();
-
-      quoteEl.classList.remove('show');
-      void quoteEl.offsetWidth;
-      quoteEl.classList.add('show');
-
-      setTimeout(showQuote, 16000);
+      typeText(quote);
     }
 
     setTimeout(showQuote, 7000);
