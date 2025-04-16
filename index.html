@@ -14,7 +14,6 @@
     @font-face { font-family: 'Dark Whisper'; src: url('Dark Whisper.woff2') format('woff2'); }
     @font-face { font-family: 'Debbie Rate'; src: url('Debbie Rate.otf') format('opentype'); }
     @font-face { font-family: 'Granady'; src: url('Granady1.otf') format('opentype'); }
-    @font-face { font-family: 'Granady Swash'; src: url('Granady swash line.otf') format('opentype'); }
     @font-face { font-family: 'Harmonie Script'; src: url('Harmonie Script.otf') format('opentype'); }
     @font-face { font-family: 'Montelia Hublot'; src: url('Montelia Hublot.otf') format('opentype'); }
     @font-face { font-family: 'RoyalWedding'; src: url('RoyalWedding-Regular.otf') format('opentype'); }
@@ -46,12 +45,26 @@
       padding: 20px;
       position: absolute;
       opacity: 0;
-      transition: opacity 6s ease-in-out;
       white-space: pre-wrap;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: none;
     }
 
     .quote.show {
-      opacity: 1;
+      animation: handwriting 7s steps(50) forwards, fadeout 3s ease-in-out 12s forwards;
+    }
+
+    @keyframes handwriting {
+      0% { background-position: 100% 0; }
+      100% { background-position: 0 0; color: #2e2e2e; }
+    }
+
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
     }
   </style>
 </head>
@@ -86,7 +99,7 @@
 
     const fonts = [
       'Alekin Wiliam','Asgardhian','Athalia','Baille Simpson','Bellidhia','Castende','Dark Whisper','Debbie Rate',
-      'Granady','Granady Swash','Harmonie Script','Montelia Hublot','RoyalWedding','Simone Kimber','Thamepalms',
+      'Granady','Harmonie Script','Montelia Hublot','RoyalWedding','Simone Kimber','Thamepalms',
       'The French Letters','TravailAcharné','Wantsignature','Wisteria Notes'
     ];
 
@@ -124,8 +137,10 @@
       adjustFontSize(font);
       setRandomPosition();
 
+      quoteEl.classList.remove('show');
+      void quoteEl.offsetWidth; // restart animation
       quoteEl.classList.add('show');
-      setTimeout(() => quoteEl.classList.remove('show'), 9000);
+
       setTimeout(showQuote, 15000);
     }
 
