@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,43 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pens.Ink</title>
   <style>
+    @font-face { font-family: 'RoyalWedding'; src: url('RoyalWedding-Regular.otf'); }
+    @font-face { font-family: 'Simone Kimber'; src: url('Simone Kimber.otf'); }
+    @font-face { font-family: 'Granady'; src: url('Granady1.otf'); }
+    @font-face { font-family: 'Alekin Wiliam'; src: url('Alekin Wiliam.otf'); }
+
     body {
       margin: 0;
-      font-family: 'Georgia', serif;
-      background: #f4f1e9;
-      color: #2e2e2e;
-      text-align: center;
+      padding: 0;
+      background-image: url('paper.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: 'RoyalWedding', serif;
+      overflow: hidden;
     }
+
     header {
-      padding: 20px;
-      background: #e6ddc4;
-      font-size: 32px;
+      width: 100%;
+      text-align: center;
+      padding: 25px;
+      font-size: 40px;
+      background-color: rgba(255, 255, 255, 0.6);
       font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      letter-spacing: 2px;
     }
-    nav a {
-      margin: 0 15px;
+
+    .quote {
+      font-size: 48px;
+      color: #111;
+      text-align: center;
+      position: absolute;
+      max-width: 90vw;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      white-space: pre-wrap;
+      animation: none;
+    }
+
+    .quote.show {
+      animation: fadeIn 4s ease forwards, fadeOut 4s ease 19s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    .shop-link {
+      position: absolute;
+      bottom: 25px;
+      right: 30px;
+      font-size: 24px;
+      font-family: 'Granady', cursive;
+      background-color: rgba(255,255,255,0.4);
+      padding: 10px 20px;
+      border-radius: 8px;
       text-decoration: none;
       color: #333;
-      font-weight: bold;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      transition: 0.3s;
     }
-    .quote {
-      font-size: 28px;
-      margin-top: 100px;
+
+    .shop-link:hover {
+      background-color: rgba(255,255,255,0.8);
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <header>
-    Pens.Ink — The Power of the Pen
-    <nav>
-      <a href="index.html">Home</a> |
-      <a href="shop.html">Shop</a>
-    </nav>
-  </header>
-  <div class="quote">
-    <p>"Injustice anywhere is a threat to justice everywhere."</p>
-    <p>Martin Luther King Jr.</p>
-  </div>
-</body>
-</html>
+  <header>Pens.Ink — The Power of the Pen</header>
+  <div class="quote" id="quote"></div>
+  <a href="shop.html" class="shop-link">Visit the Shop</a>
+
+  <script>
+    const quotes = [
+      "The pen is mightier than the sword.",
+      "You can make anything by writing.",
+      "Injustice anywhere is a threat to justice everywhere.",
+      "Fill your paper with the breathings of your heart.",
+      "Writing is the painting of the voice.",
+      "A word after a word after a word is power.",
+      "Start writing, no matter what.",
+      "Let the world burn through you. Write white hot on the page.",
+      "
