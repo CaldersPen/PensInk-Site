@@ -1,107 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pens.Ink — Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pens.Ink Shop</title>
   <style>
-    @font-face { font-family: 'Granady'; src: url('Granady1.otf') format('opentype'); }
-
     body {
       margin: 0;
-      padding: 40px;
-      background-image: url('paper.jpg');
-      background-size: cover;
-      background-position: center;
-      font-family: 'Granady', serif;
+      font-family: 'Georgia', serif;
+      background: #f4f1e9;
       color: #2e2e2e;
-    }
-
-    h1 {
       text-align: center;
-      font-size: 64px;
-      margin-bottom: 20px;
     }
-
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .product-card {
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 12px;
+    header {
       padding: 20px;
-      width: 250px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #e6ddc4;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    .product-card img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
-    .product-card h2 {
-      font-size: 24px;
-      margin: 10px 0 5px;
-    }
-
-    .product-card p {
-      font-size: 18px;
-      margin: 5px 0;
-    }
-
-    .product-card a {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 16px;
+    nav a {
+      margin: 0 15px;
       text-decoration: none;
-      color: #222;
-      background-color: #e0e0e0;
-      padding: 8px 14px;
-      border-radius: 6px;
-      transition: 0.3s;
+      color: #333;
+      font-weight: bold;
     }
-
-    .product-card a:hover {
-      background-color: #d2b48c;
-      color: #fff;
+    .shop {
+      margin-top: 60px;
+      font-size: 24px;
     }
   </style>
 </head>
 <body>
-  <h1>The Pens.Ink Collection</h1>
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="Gold pen 2" alt="Gold Pen">
-      <h2>Gold Script Fountain</h2>
-      <p>Elegance in every word.</p>
-      <a href="#">Buy Now</a>
-    </div>
-    <div class="product-card">
-      <img src="Silver pen" alt="Silver Pen">
-      <h2>Silver Flow</h2>
-      <p>Refined and balanced.</p>
-      <a href="#">Buy Now</a>
-    </div>
-    <div class="product-card">
-      <img src="Mayan pen" alt="Mayan-Inspired Pen">
-      <h2>Mayan Heritage</h2>
-      <p>Ancient beauty reborn.</p>
-      <a href="#">Buy Now</a>
-    </div>
-    <div class="product-card">
-      <img src="Caran d’Ache Gothica Pen" alt="Caran d’Ache Pen">
-      <h2>Gothica Limited</h2>
-      <p>Architectural precision.</p>
-      <a href="#">Buy Now</a>
-    </div>
+  <header>
+    Pens.Ink — Shop
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="shop.html">Shop</a>
+    </nav>
+  </header>
+  <div class="shop">
+    <p>Coming soon: Curated fountain pens, inks, and accessories.</p>
   </div>
 </body>
 </html>
