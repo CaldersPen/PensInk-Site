@@ -46,7 +46,9 @@
       position: absolute;
       opacity: 0;
       white-space: pre-wrap;
-      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+      background: linear-gradient(to right, #2e2e2e 0%, #2e2e2e 50%, transparent 50%, transparent 100%);
+      background-size: 200% 100%;
+      background-position: 100% 0;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -54,12 +56,17 @@
     }
 
     .quote.show {
-      animation: handwriting 7s steps(50) forwards, fadeout 3s ease-in-out 12s forwards;
+      animation: handwriting 6s linear forwards, fadeout 3s ease-in-out 13s forwards;
     }
 
     @keyframes handwriting {
-      0% { background-position: 100% 0; }
-      100% { background-position: 0 0; color: #2e2e2e; }
+      0% {
+        background-position: 100% 0;
+      }
+      100% {
+        background-position: 0 0;
+        color: #2e2e2e;
+      }
     }
 
     @keyframes fadeout {
@@ -138,10 +145,10 @@
       setRandomPosition();
 
       quoteEl.classList.remove('show');
-      void quoteEl.offsetWidth; // restart animation
+      void quoteEl.offsetWidth;
       quoteEl.classList.add('show');
 
-      setTimeout(showQuote, 15000);
+      setTimeout(showQuote, 16000);
     }
 
     setTimeout(showQuote, 7000);
