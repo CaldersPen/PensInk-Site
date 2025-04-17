@@ -90,6 +90,12 @@
       width: 300px;
       padding: 20px;
       text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pen-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     .pen-card img {
@@ -108,6 +114,31 @@
     .pen-card p {
       font-size: 16px;
       color: #555;
+      margin-bottom: 15px;
+    }
+
+    .buy-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #2e2e2e;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+      background-color: #f3eee6;
+      font-size: 14px;
+      color: #777;
     }
   </style>
 </head>
@@ -128,21 +159,28 @@
     <h2>Featured Pens</h2>
     <div class="pen-grid">
       <div class="pen-card">
-        <img src="https://example.com/images/pen1.jpg" alt="Pen 1">
+        <img src="https://cdn.sanity.io/images/c1chvb1i/production/7d1b2bb1c4eaa67dfed4a451169774e3c08d59fd-1200x1200.jpg" alt="Pen 1">
         <h3>Montblanc Meisterstück Classique</h3>
         <p>Iconic resin barrel and gold-plated trim. A hallmark of excellence.</p>
+        <a class="buy-button" href="#">Buy Now</a>
       </div>
       <div class="pen-card">
-        <img src="https://example.com/images/pen2.jpg" alt="Pen 2">
+        <img src="https://www.lamy.com/media/24/bb/1a/1681288103/lamy-safari-springgreen-fountainpen-broad-L21GRB.jpg" alt="Pen 2">
         <h3>Lamy Safari Fountain Pen</h3>
         <p>Ergonomic grip and modern colors. Made for everyday creators.</p>
+        <a class="buy-button" href="#">Buy Now</a>
       </div>
       <div class="pen-card">
-        <img src="https://example.com/images/pen3.jpg" alt="Pen 3">
+        <img src="https://cdn.shopify.com/s/files/1/0558/6415/9832/products/pilot-vanishing-point-fountain-pen-black-carbonesque-gold-trim-fine-nib-fct.jpg?v=1621973982" alt="Pen 3">
         <h3>Pilot Vanishing Point</h3>
         <p>Retractable nib. Revolutionary convenience meets luxury.</p>
+        <a class="buy-button" href="#">Buy Now</a>
       </div>
     </div>
   </section>
+
+  <footer>
+    &copy; 2025 Pens.Ink — All rights reserved.
+  </footer>
 </body>
 </html>
